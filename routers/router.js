@@ -10,7 +10,6 @@ const dataBasePath = path.resolve(__dirname, '../db/db.json')
 const datajson = fs.readFileSync(dataBasePath, "utf-8")
 const data = JSON.parse(datajson)
 const readFromFile = util.promisify(fs.readFile);
-console.log(data)
 
 router.get("/", (req,res) => {
     readFromFile(dataBasePath).then((data) => res.json(JSON.parse(data)));
@@ -25,7 +24,6 @@ router.post("/", (req, res) => {
         }
         data.push(newNote)
         let newJson = JSON.stringify(data)
-        console.log(newJson)
         fs.writeFile(dataBasePath, newJson, (err) => {
             if (err) {
                 console.log(err)
