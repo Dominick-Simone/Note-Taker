@@ -43,4 +43,21 @@ router.post("/", (req, res) => {
     }
 });
 
+router.delete("/:id", (req, res) => {
+    console.log(req.params.id)
+    data.map((note, index) => {
+        
+        if (note.id !== req.params.id) return;
+        data.splice(index, 1)
+        const newJson = JSON.stringify(data)
+        fs.writeFile(dataBasePath, newJson, (err) => {
+            if (err) console.log(err)
+            const response = {
+                status: "Complete",
+            };
+            return res.json(response);
+        })
+    })
+})
+
 module.exports = router;
